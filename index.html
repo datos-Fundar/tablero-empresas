@@ -1,1 +1,62 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><link rel=icon href=data:,><meta name=viewport content="width=device-width,initial-scale=1"><title>Example Domain</title><style>html{color-scheme:light dark;background:light-dark(#eee,#222)}body{font:16px/1.6 system-ui,sans-serif;max-width:26em;margin:auto;padding:25vh 2em 2em;text-align:center}</style></head><body><p>This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.</p><script src=/s.js></script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitor de Empresas · Tablero</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- Solo en celulares y tablets: barra superior fija con el logo -->
+<header id="barra-movil" aria-hidden="true">
+  <svg class="logo-barras" viewBox="0 0 200 34"><rect x="0" y="0" width="200" height="8"/><rect x="0" y="12" width="200" height="8"/><circle cx="4.5" cy="28" r="4.5"/></svg>
+  <span>fundar</span>
+</header>
+<button id="btn-abrir-nav" type="button" aria-label="Mostrar el menú" title="Mostrar el menú"><svg viewBox="0 0 18 14" aria-hidden="true"><rect y="0" width="18" height="2"/><rect y="6" width="18" height="2"/><rect y="12" width="18" height="2"/></svg></button>
+<nav id="nav">
+  <button id="btn-cerrar-nav" type="button" aria-label="Ocultar el menú" title="Ocultar el menú"><span class="ic-escritorio">&laquo;</span><span class="ic-movil">&times;</span></button>
+  <div class="brand">
+    <svg class="logo-barras" viewBox="0 0 200 34" aria-hidden="true">
+      <rect x="0" y="0" width="200" height="8"/><rect x="0" y="12" width="200" height="8"/><circle cx="4.5" cy="28" r="4.5"/>
+    </svg>
+    <div class="brand-txt">
+      <span class="brand-fundar">fundar</span>
+      <span class="brand-tit">Monitor mensual de empresas</span>
+      <small id="ultimo-dato"></small>
+    </div>
+  </div>
+  <div class="navbtns">
+    <button class="navbtn" data-vista="resumen" data-simple="Último dato"><span class="navnum">01</span><span class="navtxt">Último dato</span></button>
+    <button class="navbtn" data-vista="variaciones" data-simple="Sectores y provincias"><span class="navnum">02</span><span class="navtxt">Variaciones</span></button>
+    <button class="navbtn solo-avanzado" data-vista="cascada"><span class="navnum">03</span><span class="navtxt">Aportes (cascada)</span></button>
+    <button class="navbtn" data-vista="gobiernos" data-simple="Comparar gobiernos"><span class="navnum">04</span><span class="navtxt">Por gobierno</span></button>
+    <button class="navbtn solo-avanzado" data-vista="tamano"><span class="navnum">05</span><span class="navtxt">Por tamaño</span></button>
+    <button class="navbtn solo-avanzado" data-vista="largo"><span class="navnum">06</span><span class="navtxt">Largo plazo</span></button>
+    <button class="navbtn solo-avanzado" data-vista="ramas"><span class="navnum">07</span><span class="navtxt">Ramas (2 dígitos)</span></button>
+    <button class="navbtn" data-vista="mapa" data-simple="Mapa"><span class="navnum">08</span><span class="navtxt">Mapa</span></button>
+    <button class="navbtn" data-vista="notas" data-simple="Cómo se mide"><span class="navnum">09</span><span class="navtxt">Metodología y datos</span></button>
+  </div>
+  <div class="toggles">
+    <label class="toggle-row"><span>Modo avanzado</span><button class="switch" id="sw-modo" type="button" aria-label="Modo avanzado" title="Suma pestañas y opciones: aportes, tamaño, largo plazo, ramas a 2 dígitos y todos los controles"></button></label>
+    <label class="toggle-row"><span>Modo oscuro</span><button class="switch" id="sw-tema" type="button" aria-label="Modo oscuro"></button></label>
+  </div>
+</nav>
+
+<main id="contenido"></main>
+
+<!-- Solo en celulares y tablets: botón fijo abajo y hoja de filtros a pantalla completa -->
+<button id="btn-filtros" type="button"><svg viewBox="0 0 18 14" aria-hidden="true"><rect y="1" width="18" height="2"/><rect y="6" width="18" height="2"/><rect y="11" width="18" height="2"/><circle cx="5" cy="2" r="2.4"/><circle cx="12" cy="7" r="2.4"/><circle cx="7" cy="12" r="2.4"/></svg>Filtros y opciones</button>
+<div id="hoja" role="dialog" aria-modal="true" aria-label="Filtros y opciones del gráfico" hidden>
+  <div class="hoja-hd"><b>Filtros y opciones</b><button id="hoja-cerrar" type="button" aria-label="Cerrar">&times;</button></div>
+  <div id="hoja-cuerpo"></div>
+  <div class="hoja-pie"><button id="hoja-ver" type="button">Ver gráfico</button></div>
+</div>
+
+<div id="tooltip" hidden></div>
+
+<script src="datos/datos.js"></script>
+<script src="datos/provincias_geo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
