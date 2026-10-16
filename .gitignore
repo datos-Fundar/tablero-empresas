@@ -1,5 +1,7 @@
 *
 !datos/
+!logo
+!logo/logos.js
 !index.html
 !app.js
 !datos/datos.js

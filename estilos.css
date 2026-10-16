@@ -29,7 +29,7 @@ button,select,input{font-family:inherit;font-size:inherit;color:inherit}
 /* ---------- Navegación ---------- */
 #nav{position:fixed;inset:0 auto 0 0;width:236px;overflow-y:auto;background:var(--nav-bg);color:var(--nav-ink);display:flex;flex-direction:column;padding:26px 18px 20px;gap:26px;z-index:20}
 .brand{display:flex;flex-direction:column;gap:14px;padding-right:26px}
-.logo-barras{width:100%;height:auto;fill:var(--nav-ink)}
+.logo-fundar{display:block;width:150px;height:auto}
 #btn-cerrar-nav{position:absolute;top:18px;right:10px;width:26px;height:26px;border:0;border-radius:6px;background:none;color:var(--nav-muted);font-size:18px;line-height:1;cursor:pointer;padding:0}
 #btn-cerrar-nav:hover{color:var(--nav-ink);background:rgba(255,255,255,.08)}
 #btn-abrir-nav{display:none;position:fixed;top:16px;left:16px;z-index:20;width:38px;height:38px;border:0;border-radius:8px;background:var(--nav-bg);cursor:pointer;padding:0;align-items:center;justify-content:center}
@@ -38,8 +38,7 @@ button,select,input{font-family:inherit;font-size:inherit;color:inherit}
 body.nav-cerrado #nav{display:none}
 body.nav-cerrado #btn-abrir-nav{display:flex}
 .brand-txt{display:flex;flex-direction:column;gap:2px}
-.brand-fundar{font-weight:700;font-size:26px;letter-spacing:-.03em;line-height:1}
-.brand-tit{font-size:13px;margin-top:8px;color:var(--nav-ink)}
+.brand-tit{font-size:13px;color:var(--nav-ink)}
 .brand small{color:var(--nav-muted);font-size:11.5px}
 .navbtns{display:flex;flex-direction:column;gap:2px}
 .navbtn{display:flex;align-items:baseline;gap:10px;background:none;border:0;border-left:3px solid transparent;color:var(--nav-muted);text-align:left;padding:9px 10px;cursor:pointer;border-radius:0 6px 6px 0}
@@ -67,8 +66,8 @@ body.nav-cerrado main{margin-left:0;padding-left:72px;margin-inline:auto}
 .seccion{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:6px}
 .vista-hd h1{font-size:30px;line-height:1.12;margin:0;font-weight:700;letter-spacing:-.015em;max-width:30ch}
 .bajada{color:var(--ink2);font-size:16px;margin:8px 0 0;max-width:78ch}
-.marca-fundar{display:none;flex-direction:column;gap:8px;width:120px;flex-shrink:0;font-weight:700;font-size:24px;letter-spacing:-.03em;line-height:1}
-.marca-fundar .logo-barras{fill:var(--ink)}
+.marca-fundar{display:none;width:120px;flex-shrink:0}
+.marca-fundar .logo-fundar{width:100%}
 body.nav-cerrado .marca-fundar{display:flex}
 
 .ctls{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-end;background:var(--bg-card);border:1px solid var(--borde);border-radius:10px;padding:14px 16px;margin-bottom:16px}
@@ -183,8 +182,7 @@ body.oscuro #tooltip{background:#F2F2F2;color:#161615}
   /* Menú: botón hamburguesa flotante arriba a la derecha que abre el menú a pantalla completa */
   /* Barra superior fija con el logo; el botón hamburguesa queda a su derecha */
   #barra-movil{display:flex;align-items:center;gap:10px;position:fixed;top:0;left:0;right:0;height:56px;padding:0 64px 0 16px;background:var(--nav-bg);color:var(--nav-ink);z-index:29}
-  #barra-movil .logo-barras{width:74px;height:auto;fill:var(--nav-ink)}
-  #barra-movil span{font-weight:700;font-size:21px;letter-spacing:-.03em;line-height:1}
+  #barra-movil .logo-fundar{width:auto;height:38px}
   #btn-abrir-nav,body.nav-cerrado #btn-abrir-nav{display:flex;left:auto;right:8px;top:7px;width:42px;height:42px;z-index:30}
   #nav,body.nav-cerrado #nav{display:none;inset:0;width:auto;padding:22px 20px calc(20px + env(safe-area-inset-bottom));gap:22px;z-index:40}
   body.menu-abierto #nav{display:flex}
@@ -193,7 +191,6 @@ body.oscuro #tooltip{background:#F2F2F2;color:#161615}
   .ic-escritorio{display:none}
   .ic-movil{display:inline}
   .brand{padding-right:56px}
-  .logo-barras{max-width:200px}
   .navbtn{padding:13px 12px}
   .navtxt{font-size:17px}
   .toggle-row{font-size:14px;padding:6px 0}

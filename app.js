@@ -311,7 +311,7 @@ function descargarCSV(filas, nombre) {
 }
 function svgParaExportar(svg, titulo, subtitulo) {
   const w = +svg.getAttribute('width'), hh = +svg.getAttribute('height'), pad = 20;
-  const top = titulo ? (subtitulo ? 70 : 46) : 16, bot = 36;
+  const top = titulo ? (subtitulo ? 70 : 46) : 16, bot = 50;
   const W = w + 2 * pad, H = hh + top + bot;
   const out = s('svg', { xmlns: NS, width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'font-family': FUENTE_SVG });
   s('rect', { x: 0, y: 0, width: W, height: H, fill: css('--bg') }, out);
@@ -319,8 +319,10 @@ function svgParaExportar(svg, titulo, subtitulo) {
   if (subtitulo) txt(out, pad, 55, subtitulo.replace(/<[^>]+>/g, ''), { 'font-size': 13, fill: css('--ink2') });
   const g = s('g', { transform: `translate(${pad},${top})` }, out);
   g.innerHTML = svg.innerHTML;
-  txt(out, pad, H - 14, 'Fuente: ' + D.fuente, { 'font-size': 11.5, fill: css('--ink2'), 'font-weight': 700 });
-  txt(out, W - pad, H - 12, 'fundar', { 'font-size': 18, 'font-weight': 700, fill: css('--ink'), 'text-anchor': 'end', 'letter-spacing': '-0.5' });
+  txt(out, pad, H - 16, 'Fuente: ' + D.fuente, { 'font-size': 11.5, fill: css('--ink2'), 'font-weight': 700 });
+  // Logo de Fundar (PNG de tablero/logo) abajo a la derecha, en negro o blanco según el fondo
+  const lw = 76, lh = Math.round(lw * 1370 / 2736);
+  s('image', { href: logoSegunTema(), x: W - pad - lw, y: H - 8 - lh, width: lw, height: lh }, out);
   return out;
 }
 function exportarSVG(svg, nombre, t, st) {
@@ -342,7 +344,10 @@ function exportarPNG(svg, nombre, t, st) {
 // ---------------------------------------------------------------------------
 // Componentes de página
 // ---------------------------------------------------------------------------
-const LOGO_SVG = '<svg class="logo-barras" viewBox="0 0 200 34"><rect x="0" y="0" width="200" height="8"/><rect x="0" y="12" width="200" height="8"/><circle cx="4.5" cy="28" r="4.5"/></svg>';
+// Logos de Fundar (tablero/logo, embebidos en logo/logos.js): blanco sobre la barra lateral, y negro o blanco
+// según el tema en el encabezado y en las descargas
+const logoSegunTema = () => LOGOS[document.body.classList.contains('oscuro') ? 'blanco' : 'negro'];
+document.querySelectorAll('img.logo-fundar[data-tono]').forEach(img => { img.src = LOGOS[img.dataset.tono]; });
 function encabezado(root, titulo, bajada, seccion) {
   const hd = h('header', { class: 'vista-hd' }, root);
   const t = h('div', {}, hd);
@@ -350,7 +355,7 @@ function encabezado(root, titulo, bajada, seccion) {
   h('h1', {}, t, titulo);
   if (bajada) h('p', { class: 'bajada' }, t, bajada);
   // El logo va acá solo cuando la barra lateral está cerrada (con la barra abierta se ve en ella)
-  h('div', { class: 'marca-fundar', 'aria-hidden': 'true' }, hd, LOGO_SVG + '<span>fundar</span>');
+  h('div', { class: 'marca-fundar', 'aria-hidden': 'true' }, hd, `<img class="logo-fundar" src="${logoSegunTema()}" alt="">`);
 }
 // En el celular las descargas salen en formato escritorio: se vuelve a dibujar la vista en un contenedor
 // oculto de 1180 px y se toma el gráfico de la misma tarjeta
@@ -1408,9 +1413,10 @@ function graficoCascada(root, o) {
     if (esTotal) s('line', { x1: 0, x2: W, y1: y + 0.5, y2: y + 0.5, stroke: css('--eje'), 'stroke-width': 0.8 }, svg);
     txt(svg, labelW - 8, y + filaH / 2 + 4, f.label, { 'font-size': 12.5, fill: tinta, 'text-anchor': 'end', 'font-weight': esTotal ? 700 : null });
     let color = f.valor >= 0 ? css('--pos') : css('--neg');
-    if (f.tono === 'resto') color = mezclar(color, css('--neutro'), 0.45);
+    // Las barras negativas van siempre con el mismo rojo (sin variantes para el resto ni el total)
+    if (f.tono === 'resto' && f.valor >= 0) color = mezclar(color, css('--neutro'), 0.45);
     if (f.tono === 'gris') color = css('--serie-gris');
-    if (esTotal) color = f.valor >= 0 ? css('--pos-2') : css('--neg-2');
+    if (esTotal && f.valor >= 0) color = css('--pos-2');
     const xa = xs(Math.min(f.a, f.b)), xb = xs(Math.max(f.a, f.b));
     s('rect', { x: xa, y: yb, width: Math.max(1, xb - xa), height: barH, rx: 2, fill: color }, svg);
     // Conector con la barra siguiente
@@ -1458,9 +1464,10 @@ function graficoCascadaMovil(root, o) {
     const yb = top + r * filaH + 20, esTotal = f.tono === 'total';
     if (esTotal) s('line', { x1: 0, x2: W, y1: yb - 21.5, y2: yb - 21.5, stroke: css('--eje'), 'stroke-width': 0.8 }, svg);
     let color = f.valor >= 0 ? css('--pos') : css('--neg');
-    if (f.tono === 'resto') color = mezclar(color, css('--neutro'), 0.45);
+    // Las barras negativas van siempre con el mismo rojo (sin variantes para el resto ni el total)
+    if (f.tono === 'resto' && f.valor >= 0) color = mezclar(color, css('--neutro'), 0.45);
     if (f.tono === 'gris') color = css('--serie-gris');
-    if (esTotal) color = f.valor >= 0 ? css('--pos-2') : css('--neg-2');
+    if (esTotal && f.valor >= 0) color = css('--pos-2');
     const xa = xs(Math.min(f.a, f.b)), xb = xs(Math.max(f.a, f.b));
     s('rect', { x: xa, y: yb, width: Math.max(1, xb - xa), height: barH, rx: 2, fill: color }, svg);
     if (r < filas.length - 1) s('line', { x1: xs(f.b), x2: xs(f.b), y1: yb + barH, y2: yb + filaH, stroke: css('--eje'), 'stroke-width': 1, 'stroke-dasharray': '2 2' }, svg);
