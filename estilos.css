@@ -29,7 +29,7 @@ button,select,input{font-family:inherit;font-size:inherit;color:inherit}
 /* ---------- Navegación ---------- */
 #nav{position:fixed;inset:0 auto 0 0;width:236px;overflow-y:auto;background:var(--nav-bg);color:var(--nav-ink);display:flex;flex-direction:column;padding:26px 18px 20px;gap:26px;z-index:20}
 .brand{display:flex;flex-direction:column;gap:14px;padding-right:26px}
-.logo-fundar{display:block;width:150px;height:auto}
+.logo-fundar{display:block;width:95px;height:auto}
 #btn-cerrar-nav{position:absolute;top:18px;right:10px;width:26px;height:26px;border:0;border-radius:6px;background:none;color:var(--nav-muted);font-size:18px;line-height:1;cursor:pointer;padding:0}
 #btn-cerrar-nav:hover{color:var(--nav-ink);background:rgba(255,255,255,.08)}
 #btn-abrir-nav{display:none;position:fixed;top:16px;left:16px;z-index:20;width:38px;height:38px;border:0;border-radius:8px;background:var(--nav-bg);cursor:pointer;padding:0;align-items:center;justify-content:center}
